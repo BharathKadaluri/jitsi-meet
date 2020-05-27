@@ -159,10 +159,11 @@ function initCommands() {
 
             APP.store.dispatch(toggleTileView());
         },
-        'video-hangup': (showFeedbackDialog = true) => {
-            sendAnalytics(createApiEvent('video.hangup'));
-            APP.conference.hangup(showFeedbackDialog);
-        },
+
+        // 'video-hangup': (showFeedbackDialog = false) => {
+        //     sendAnalytics(createApiEvent('video.hangup'));
+        //     APP.conference.hangup(showFeedbackDialog);
+        // },
         'email': email => {
             sendAnalytics(createApiEvent('email.changed'));
             APP.conference.changeLocalEmail(email);

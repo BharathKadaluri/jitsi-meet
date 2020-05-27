@@ -35,7 +35,6 @@ import { VideoBlurButton } from '../../../blur';
 import { ChatCounter, toggleChat } from '../../../chat';
 import { E2EEButton } from '../../../e2ee';
 import { SharedDocumentButton } from '../../../etherpad';
-import { openFeedbackDialog } from '../../../feedback';
 import { beginAddPeople } from '../../../invite';
 import { openKeyboardShortcutsDialog } from '../../../keyboard-shortcuts';
 import {
@@ -370,7 +369,7 @@ class Toolbox extends Component<Props, State> {
     _doOpenFeedback() {
         const { _conference } = this.props;
 
-        this.props.dispatch(openFeedbackDialog(_conference));
+        // this.props.dispatch(openFeedbackDialog(_conference));
     }
 
     /**
@@ -1095,15 +1094,16 @@ class Toolbox extends Component<Props, State> {
                         key = 'security'
                         showLabel = { true } />
                 );
-            case 'invite':
-                return (
-                    <OverflowMenuItem
-                        accessibilityLabel = { t('toolbar.accessibilityLabel.invite') }
-                        icon = { IconInviteMore }
-                        key = 'invite'
-                        onClick = { this._onToolbarOpenInvite }
-                        text = { t('toolbar.invite') } />
-                );
+
+            // case 'invite':
+            //     return (
+            //         <OverflowMenuItem
+            //             accessibilityLabel = { t('toolbar.accessibilityLabel.invite') }
+            //             icon = { IconInviteMore }
+            //             key = 'invite'
+            //             onClick = { this._onToolbarOpenInvite }
+            //             text = { t('toolbar.invite') } />
+            //     );
             case 'tileview':
                 return <TileViewButton showLabel = { true } />;
             case 'localrecording':
@@ -1279,13 +1279,13 @@ class Toolbox extends Component<Props, State> {
                     }
                     { buttonsRight.indexOf('tileview') !== -1
                         && <TileViewButton /> }
-                    { buttonsRight.indexOf('invite') !== -1
+                    {/* { buttonsRight.indexOf('invite') !== -1
                         && <ToolbarButton
                             accessibilityLabel =
                                 { t('toolbar.accessibilityLabel.invite') }
                             icon = { IconInviteMore }
                             onClick = { this._onToolbarOpenInvite }
-                            tooltip = { t('toolbar.invite') } /> }
+                            tooltip = { t('toolbar.invite') } /> } */}
                     { buttonsRight.indexOf('security') !== -1
                         && <SecurityDialogButton customClass = 'security-toolbar-button' /> }
                     { buttonsRight.indexOf('overflowmenu') !== -1

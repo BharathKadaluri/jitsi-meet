@@ -76,31 +76,32 @@ MiddlewareRegistry.register(store => next => action => {
 
         return next(action);
     }
-    case PARTICIPANT_UPDATED: {
-        if (typeof interfaceConfig === 'undefined' || interfaceConfig.DISABLE_FOCUS_INDICATOR) {
-            // Do not show the notification for mobile and also when the focus indicator is disabled.
-            return next(action);
-        }
 
-        const { id, role } = action.participant;
-        const state = store.getState();
-        const oldParticipant = getParticipantById(state, id);
-        const oldRole = oldParticipant?.role;
+    // case PARTICIPANT_UPDATED: {
+    //     if (typeof interfaceConfig === 'undefined' || interfaceConfig.DISABLE_FOCUS_INDICATOR) {
+    //         // Do not show the notification for mobile and also when the focus indicator is disabled.
+    //         return next(action);
+    //     }
 
-        if (oldRole && oldRole !== role && role === PARTICIPANT_ROLE.MODERATOR) {
-            const displayName = getParticipantDisplayName(state, id);
+    //     const { id, role } = action.participant;
+    //     const state = store.getState();
+    //     const oldParticipant = getParticipantById(state, id);
+    //     const oldRole = oldParticipant?.role;
 
-            store.dispatch(showNotification({
-                descriptionArguments: { to: displayName || '$t(notify.somebody)' },
-                descriptionKey: 'notify.grantedTo',
-                titleKey: 'notify.somebody',
-                title: displayName
-            },
-            NOTIFICATION_TIMEOUT));
-        }
+    //     if (oldRole && oldRole !== role && role === PARTICIPANT_ROLE.MODERATOR) {
+    //         const displayName = getParticipantDisplayName(state, id);
 
-        return next(action);
-    }
+    //         store.dispatch(showNotification({
+    //             descriptionArguments: { to: displayName || '$t(notify.somebody)' },
+    //             descriptionKey: 'notify.grantedTo',
+    //             titleKey: 'notify.somebody',
+    //             title: displayName
+    //         },
+    //         NOTIFICATION_TIMEOUT));
+    //     }
+
+    //     return next(action);
+    // }
     }
 
     return next(action);

@@ -27,7 +27,7 @@ import {
 } from '../AbstractConference';
 import type { AbstractProps } from '../AbstractConference';
 
-import InviteMore from './InviteMore';
+// import InviteMore from './InviteMore';
 import Labels from './Labels';
 import { default as Notice } from './Notice';
 import { default as Subject } from './Subject';
@@ -200,7 +200,7 @@ class Conference extends AbstractConference<Props, *> {
 
                 <Notice />
                 <Subject />
-                <InviteMore />
+                {/* <InviteMore /> */}
                 <div id = 'videospace'>
                     <LargeVideo />
                     { hideVideoQualityLabel

@@ -19,7 +19,6 @@ import {
     sendAnalytics
 } from './react/features/analytics';
 import {
-    maybeRedirectToWelcomePage,
     redirectToStaticPage,
     reloadWithStoredParams
 } from './react/features/app';
@@ -106,7 +105,6 @@ import { showDesktopPicker } from './react/features/desktop-picker';
 import { appendSuffix } from './react/features/display-name';
 import { setE2EEKey } from './react/features/e2ee';
 import {
-    maybeOpenFeedbackDialog,
     submitFeedback
 } from './react/features/feedback';
 import { showNotification } from './react/features/notifications';
@@ -2334,7 +2332,7 @@ export default {
 
         // call hangup
         APP.UI.addListener(UIEvents.HANGUP, () => {
-            this.hangup(true);
+            this.hangup(false);
         });
 
         // logout
@@ -2343,7 +2341,7 @@ export default {
                 if (url) {
                     UIUtil.redirect(url);
                 } else {
-                    this.hangup(true);
+                    this.hangup(false);
                 }
             });
         });
@@ -2879,31 +2877,33 @@ export default {
         APP.UI.removeAllListeners();
         APP.remoteControl.removeAllListeners();
 
-        let requestFeedbackPromise;
+        // let requestFeedbackPromise;
 
-        if (requestFeedback) {
-            requestFeedbackPromise
-                = APP.store.dispatch(maybeOpenFeedbackDialog(room))
+        // if (requestFeedback) {
+        //     requestFeedbackPromise
+        //         = APP.store.dispatch(maybeOpenFeedbackDialog(room))
 
-                    // false because the thank you dialog shouldn't be displayed
-                    .catch(() => Promise.resolve(false));
-        } else {
-            requestFeedbackPromise = Promise.resolve(true);
-        }
+        //             // false because the thank you dialog shouldn't be displayed
+        //             .catch(() => Promise.resolve(false));
+        // } else {
+        //     requestFeedbackPromise = Promise.resolve(true);
+        // }
 
         // All promises are returning Promise.resolve to make Promise.all to
         // be resolved when both Promises are finished. Otherwise Promise.all
         // will reject on first rejected Promise and we can redirect the page
         // before all operations are done.
         Promise.all([
-            requestFeedbackPromise,
+
+            // requestFeedbackPromise,
             this.leaveRoomAndDisconnect()
         ]).then(values => {
             this._room = undefined;
             room = undefined;
 
             APP.API.notifyReadyToClose();
-            APP.store.dispatch(maybeRedirectToWelcomePage(values[0]));
+
+            // APP.store.dispatch(maybeRedirectToWelcomePage(values[0]));
         });
     },
 
