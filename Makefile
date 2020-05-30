@@ -1,7 +1,7 @@
 BUILD_DIR = build
 CLEANCSS = ./node_modules/.bin/cleancss
 DEPLOY_DIR = libs
-LIBJITSIMEET_DIR = node_modules/lib-jitsi-meet/
+LIBJITSIMEET_DIR = /home/ubuntu/lib-jitsi-meet
 LIBFLAC_DIR = node_modules/libflacjs/dist/min/
 RNNOISE_WASM_DIR = node_modules/rnnoise-wasm/dist/
 NODE_SASS = ./node_modules/.bin/node-sass
@@ -19,13 +19,13 @@ compile:
 	$(WEBPACK) -p
 
 clean:
-	rm -fr $(BUILD_DIR)
+	#rm -fr $(BUILD_DIR)
 
 .NOTPARALLEL:
 deploy: deploy-init deploy-appbundle deploy-rnnoise-binary deploy-lib-jitsi-meet deploy-libflac deploy-css deploy-local
 
 deploy-init:
-	rm -fr $(DEPLOY_DIR)
+	#rm -fr $(DEPLOY_DIR)
 	mkdir -p $(DEPLOY_DIR)
 
 deploy-appbundle:
@@ -82,7 +82,7 @@ deploy-local:
 
 .NOTPARALLEL:
 dev: deploy-init deploy-css deploy-rnnoise-binary deploy-lib-jitsi-meet deploy-libflac
-	$(WEBPACK_DEV_SERVER)
+	$(WEBPACK_DEV_SERVER) --public 0.0.0.0:443
 
 source-package:
 	mkdir -p source_package/jitsi-meet/css && \
